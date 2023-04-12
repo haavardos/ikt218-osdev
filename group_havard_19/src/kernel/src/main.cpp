@@ -12,5 +12,5 @@ void kernel_main()
 {
 init_gdt();
 terminal_initialize();
-terminal_write("Hello World!ALI", 15);
+terminal_write("Hello World!", 12);
 }
