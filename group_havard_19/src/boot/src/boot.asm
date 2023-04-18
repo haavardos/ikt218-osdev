@@ -1,6 +1,5 @@
 bits 32
-
-
+ ; Constants used for multiboot header
 MBOOT_PAGE_ALIGN       equ 1<<0    ; Load kernel and modules on a page boundary
 MBOOT_MEM_INFO         equ 1<<1    ; Provide your kernel with memory info
 MBOOT_AOUT_KLUDGE      equ 0x00010000;
@@ -15,7 +14,7 @@ KERNEL_STACK_SIZE equ 0x4000
 ; AOUT Kludge
 AOUT_KLUDGE equ MBOOT_AOUT_KLUDGE
 
-
+; Multiboot header section
 section .multiboot
 multiboot:
 align 4
@@ -40,39 +39,36 @@ align 4
     dd 480
     dd 32
 
-
+ ; Stack section
 section .bss
 align 16
 stack_bottom:
 resb KERNEL_STACK_SIZE ; 16 KiB
 stack_top:
 
-
+ ;Code section
 section .text
 global _start:function (_start.end - _start)
 _start:
 	
 
 	;extern init_multiboot
-	;push ebx						; Pass a pointer to the multiboot header, filled in by the bootloader
+	;push ebx						
 	;call init_multiboot
 
 
-	
+    ; Set up the stack pointer
        mov esp, stack_top
 
 	
     ;extern init_gdt
     ;call init_gdt
 
-  
-
-
-	
+        ; Call the kernal_main() function
 	    extern kernel_main
-	    call kernel_main  ; call our kernel_main() function.
+	    call kernel_main  
 
-	
+        ; Halt the processor
 	    cli
 .hang:	hlt
 	    jmp .hang

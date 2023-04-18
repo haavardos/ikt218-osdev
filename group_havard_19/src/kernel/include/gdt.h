@@ -1,3 +1,10 @@
+/*
+  gdt.h - Contains the structures, definitions, and function prototypes
+        for the Global Descriptor Table (GDT), which is responsible for
+        defining memory segments and their properties in the operating system.
+ */
+
+
 #ifndef GDT_H
 #define GDT_H
 
@@ -30,7 +37,7 @@ struct gdtr {
 } __attribute__((packed));
 
 
-
+/*
 struct tss {
     uint16_t back_link, __blh;
     uint32_t esp0;
@@ -54,12 +61,11 @@ struct tss {
     uint16_t ldt_selector, __ldtselh;
     uint16_t debug_flag, io_map;
 };
-
+*/
 // Initialize the GDT
 void init_gdt(void);
 // Initialize a GDT segment descriptor
 void init_gdt_desc(uint32_t base, uint32_t limite, uint8_t acces, uint8_t other, struct gdtdesc *desc);
-
 
 //extern void gdt_flush();
 

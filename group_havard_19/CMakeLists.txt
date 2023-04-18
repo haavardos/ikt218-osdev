@@ -206,7 +206,8 @@ set_target_properties(
 ########################################
 ###
 ### OS Module: Terminal
-###
+### This module handles the terminal functionality for the operating system kernel.
+### It provides an interface for text-based output to the screen.
 ########################################
 set(OS_MODULE_TERMINAL_NAME ${OS_KERNEL_NAME}-terminal)
 set(OS_MODULE_TERMINAL_SOURCES
@@ -223,7 +224,7 @@ set(OS_LIBRARIES ${OS_LIBRARIES} ${OS_MODULE_TERMINAL_NAME})
 
 target_link_libraries(${OS_MODULE_KERNEL_NAME} PUBLIC ${OS_MODULE_DESCRIPTOR_TABLES_NAME} ${OS_MODULE_TERMINAL_NAME})
 
-#Detta var etter melleom target_include directories og før set target properties
+#This was between target_include directories and before set target properties
 # Defines which libraries to link against. Linking is where the compiler "glues" together libraries and code pieces.
 target_link_libraries(
         ${OS_MODULE_KERNEL_NAME} PUBLIC
